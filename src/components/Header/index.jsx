@@ -1,7 +1,9 @@
+import { TituloStyle, HeaderStyle } from "./style";
+
 export function Header (){
     return (
-        <header>
-            <h1>SIMULADOR</h1>
-        </header>
+        <HeaderStyle>
+            <TituloStyle>Simulador da Copa do Mundo 2022</TituloStyle>
+        </HeaderStyle>
     )
 }

@@ -1,9 +1,13 @@
+import { Link } from "react-router-dom";
+import { ButtonSimulation, SimulationContainer } from "./style";
+
 export function StartSimulation(){
 
     return (
-        <div>
+        <SimulationContainer>
             <p>Clique no botão e inicie a simulação</p>
-            <button type='button'>Simular</button>
-        </div>
+            <Link to='/groups'><ButtonSimulation type='button'>Simular</ButtonSimulation></Link>
+            
+        </SimulationContainer>
     )
 }
