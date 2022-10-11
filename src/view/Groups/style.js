@@ -22,3 +22,7 @@ export const TableGroups = styled.table`
 
     
 `
+
+export const LoadingMessage = styled.p`
+    color: ${prop => prop.theme['gray-text']};
+`
