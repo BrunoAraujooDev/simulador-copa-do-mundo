@@ -8,6 +8,6 @@ export const HomeContainer = styled.main`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #FFF;
+    background-color: ${prop => prop.theme['white']};
 
 `

@@ -3,7 +3,7 @@ export const defaultTheme = {
   
     'gray-title': '#333333',
     'gray-text': '#202024',
-    'gray-900': '#121214',
+    'gray-background': '#eee',
   
     'green-base': '#05883A',
     'green-header': '#06AA48',
