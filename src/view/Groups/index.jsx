@@ -13,7 +13,7 @@ export function Groups() {
 
 
     async function getCountries() {
-        // const teams = await getAllTeams()
+        const teams = await getAllTeams()
 
 
 

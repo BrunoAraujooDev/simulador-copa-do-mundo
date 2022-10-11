@@ -1,24 +1,43 @@
 export function createGroups(teams) {
 
+    let auxArray = teams;
+    
     const teamsArray = [[], [], [], [], [], [], [], []]
-
-            
+    
+    
     for (let i = 0; i < teams.length; i++) {
-
+        
         let position = Math.floor(Math.random() * (8 - 0) + 0);
-        console.log('teamsArray[position]', teamsArray[position])
-
+        
         if (teamsArray[position].length < 4) {
             teamsArray[position].push(teams[i])
             
         } else {
             const index = teamsArray.findIndex(item => item.length != 4)
-
+            
             teamsArray[index].push(teams[i])
             
         }
-
+        
     }
+    
+    for (let i = 0; i < teams.length; i++) {
+        
+        teamsArray.forEach(group => {
+            
+            let hasInArray = group.findIndex(team => teams[i].name == team.name && true)
+            
+            if(hasInArray !=  -1){
+                
+                 auxArray.splice(i, 1)
+                }  
+                
+            } )
+            
+        }
+        
+        console.log('auxArray', auxArray)
+     
 
     const results = makeResultsForEachGroup(teamsArray)
 
@@ -33,6 +52,7 @@ export function createGroups(teams) {
 // cria o resultado de cada confronto
 
 function makeResultsForEachGroup(groups) {
+    //console.log('groups', groups)
 
 
     for (let i = 0; i < groups.length; i++) {
@@ -44,7 +64,7 @@ function makeResultsForEachGroup(groups) {
             let team = group[j]
             
 
-            for (let k = 0; k < team.rodadas.length; k++) {
+            for (let k = 0; k < team.games.length; k++) {
 
                 let resulta = Math.floor(Math.random() * (7 - 0) + 0);
                 let resultb = Math.floor(Math.random() * (7 - 0) + 0);
