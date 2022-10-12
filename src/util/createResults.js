@@ -111,6 +111,16 @@ export function makeResultsForEachGroup(groups) {
 
             if (j == 0) {
 
+                let round = [ 'gameOne',
+                    'gameTwo',
+                    'gameThree']
+
+                    // let rounds = {gameOne: 'gameOne',
+                    //     gameTwo: 'gameTwo',
+                    //     gameThree: 'gameThree'}
+                   
+                
+
                 for(let k = 1; k <= 3; k++){
 
                     let resulta = Math.floor(Math.random() * (7));
@@ -121,6 +131,8 @@ export function makeResultsForEachGroup(groups) {
 
                     if (resulta > resultb) {
 
+                        // let foundRound = (k - 1) !== 0 ? ((k - 1) === 1 ? round[k-1] : round[k  - 1]) : round[k-1]
+
                         groups[i][j] = {
                             token: team.Token,
                             name: team.Name,
@@ -129,9 +141,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: team.victory + 1,
                             draw: team.draw,
                             defeat: team.defeat,
-                            goalsPro: team.goalsPro + resulta,
+                            goalsPro: team.goalsPro + (resulta - resultb),
                             games: [...team.games, {
-                                gameOne: {
+                                [round[k-1]]: {
                                     winner: true,
                                     adversary: teamb.Name,
                                     goals: resulta,
@@ -148,9 +160,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: teamb.victory,
                             draw: teamb.draw,
                             defeat: teamb.defeat + 1,
-                            goalsPro: teamb.goalsPro + resultb,
+                            goalsPro: teamb.goalsPro + (resultb - resulta),
                             games: [...teamb.games, {
-                                gameOne: {
+                                [round[k-1]]: {
                                     winner: false,
                                     adversary: team.Name,
                                     goals: resultb,
@@ -167,9 +179,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: team.victory,
                             draw: team.draw + 1,
                             defeat: team.defeat,
-                            goalsPro: team.goalsPro + resulta,
+                            goalsPro: team.goalsPro + (resulta - resultb),
                             games: [...team.games, {
-                                k: {
+                                [round[k-1]]: {
                                     winner: false,
                                     adversary: groups[i][j + 1].Name,
                                     goals: resulta,
@@ -186,9 +198,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: teamb.victory,
                             draw: teamb.draw + 1,
                             defeat: teamb.defeat,
-                            goalsPro: teamb.goalsPro + resultb,
+                            goalsPro: teamb.goalsPro + (resultb - resulta),
                             games: [...teamb.games, {
-                                gameOne: {
+                                [round[k-1]]: {
                                     winner: false,
                                     adversary: team.Name,
                                     goals: resultb,
@@ -205,9 +217,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: team.victory,
                             draw: team.draw,
                             defeat: team.defeat + 1,
-                            goalsPro: team.goalsPro + resulta,
+                            goalsPro: team.goalsPro + (resulta - resultb),
                             games: [...team.games, {
-                                k: {
+                                [round[k-1]]: {
                                     winner: false,
                                     adversary: groups[i][j + 1].Name,
                                     goals: resulta,
@@ -224,9 +236,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: teamb.victory + 1,
                             draw: teamb.draw,
                             defeat: teamb.defeat,
-                            goalsPro: teamb.goalsPro + resultb,
+                            goalsPro: teamb.goalsPro + (resultb - resulta),
                             games: [...teamb.games, {
-                                gameOne: {
+                                [round[k-1]]: {
                                     winner: true,
                                     adversary: team.Name,
                                     goals: resultb,
@@ -242,6 +254,10 @@ export function makeResultsForEachGroup(groups) {
 
 
             } else if(j == 1){
+
+                let round = [
+                    'gameTwo',
+                    'gameThree']
 
                 for(let k = 1; k <= 2; k++){
 
@@ -261,9 +277,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: team.victory + 1,
                             draw: team.draw,
                             defeat: team.defeat,
-                            goalsPro: team.goalsPro + resulta,
+                            goalsPro: team.goalsPro + (resulta - resultb),
                             games: [...team.games, {
-                                gameOne: {
+                                [round[k-1]]: {
                                     winner: true,
                                     adversary: teamb.Name,
                                     goals: resulta,
@@ -280,9 +296,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: teamb.victory,
                             draw: teamb.draw,
                             defeat: teamb.defeat + 1,
-                            goalsPro: teamb.goalsPro + resultb,
+                            goalsPro: teamb.goalsPro + (resultb - resulta),
                             games: [...teamb.games, {
-                                gameOne: {
+                                [round[k-1]]: {
                                     winner: false,
                                     adversary: team.Name,
                                     goals: resultb,
@@ -299,9 +315,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: team.victory,
                             draw: team.draw + 1,
                             defeat: team.defeat,
-                            goalsPro: team.goalsPro + resulta,
+                            goalsPro: team.goalsPro + (resulta - resultb),
                             games: [...team.games, {
-                                k: {
+                                [round[k-1]]: {
                                     winner: false,
                                     adversary: groups[i][j + 1].Name,
                                     goals: resulta,
@@ -318,9 +334,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: teamb.victory,
                             draw: teamb.draw + 1,
                             defeat: teamb.defeat,
-                            goalsPro: teamb.goalsPro + resultb,
+                            goalsPro: teamb.goalsPro + (resultb - resulta),
                             games: [...teamb.games, {
-                                gameOne: {
+                                [round[k-1]]: {
                                     winner: false,
                                     adversary: team.Name,
                                     goals: resultb,
@@ -337,9 +353,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: team.victory,
                             draw: team.draw,
                             defeat: team.defeat + 1,
-                            goalsPro: team.goalsPro + resulta,
+                            goalsPro: team.goalsPro + (resulta - resultb),
                             games: [...team.games, {
-                                k: {
+                                [round[k-1]]: {
                                     winner: false,
                                     adversary: groups[i][j + 1].Name,
                                     goals: resulta,
@@ -356,9 +372,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: teamb.victory + 1,
                             draw: teamb.draw,
                             defeat: teamb.defeat,
-                            goalsPro: teamb.goalsPro + resultb,
+                            goalsPro: teamb.goalsPro + (resultb - resulta),
                             games: [...teamb.games, {
-                                gameOne: {
+                                [round[k-1]]: {
                                     winner: true,
                                     adversary: team.Name,
                                     goals: resultb,
@@ -392,9 +408,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: team.victory + 1,
                             draw: team.draw,
                             defeat: team.defeat,
-                            goalsPro: team.goalsPro + resulta,
+                            goalsPro: team.goalsPro + (resulta - resultb),
                             games: [...team.games, {
-                                gameOne: {
+                                gameThree: {
                                     winner: true,
                                     adversary: teamb.Name,
                                     goals: resulta,
@@ -411,9 +427,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: teamb.victory,
                             draw: teamb.draw,
                             defeat: teamb.defeat + 1,
-                            goalsPro: teamb.goalsPro + resultb,
+                            goalsPro: teamb.goalsPro + (resultb - resulta),
                             games: [...teamb.games, {
-                                gameOne: {
+                                gameThree: {
                                     winner: false,
                                     adversary: team.Name,
                                     goals: resultb,
@@ -430,9 +446,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: team.victory,
                             draw: team.draw + 1,
                             defeat: team.defeat,
-                            goalsPro: team.goalsPro + resulta,
+                            goalsPro: team.goalsPro + (resulta - resultb),
                             games: [...team.games, {
-                                k: {
+                                gameThree: {
                                     winner: false,
                                     adversary: groups[i][j + 1].Name,
                                     goals: resulta,
@@ -449,9 +465,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: teamb.victory,
                             draw: teamb.draw + 1,
                             defeat: teamb.defeat,
-                            goalsPro: teamb.goalsPro + resultb,
+                            goalsPro: teamb.goalsPro + (resultb - resulta),
                             games: [...teamb.games, {
-                                gameOne: {
+                                gameThree: {
                                     winner: false,
                                     adversary: team.Name,
                                     goals: resultb,
@@ -468,9 +484,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: team.victory,
                             draw: team.draw,
                             defeat: team.defeat + 1,
-                            goalsPro: team.goalsPro + resulta,
+                            goalsPro: team.goalsPro + (resulta - resultb),
                             games: [...team.games, {
-                                k: {
+                                gameThree: {
                                     winner: false,
                                     adversary: groups[i][j + 1].Name,
                                     goals: resulta,
@@ -487,9 +503,9 @@ export function makeResultsForEachGroup(groups) {
                             victory: teamb.victory + 1,
                             draw: teamb.draw,
                             defeat: teamb.defeat,
-                            goalsPro: teamb.goalsPro + resultb,
+                            goalsPro: teamb.goalsPro + (resultb - resulta),
                             games: [...teamb.games, {
-                                gameOne: {
+                                gameThree: {
                                     winner: true,
                                     adversary: team.Name,
                                     goals: resultb,
@@ -504,14 +520,15 @@ export function makeResultsForEachGroup(groups) {
                 
             }        
 
-            return groups;
         }
     }
+    console.log('groups', groups)
+    return groups;
 }
 
 // ordena o grupo com base nos pontos obtidos
 
-function sortGroupByPoints(groups) {
+export function sortGroupByPoints(groups) {
 
     for (let i = 0; i < groups.length; i++) {
 
