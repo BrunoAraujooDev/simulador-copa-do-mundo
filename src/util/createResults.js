@@ -1,19 +1,19 @@
-/*export function createGroups(teams) {
-    const MAX_TEAMS = 4;
-    const groups = [];
-    while (teams.length > 0) {
-        const group = [];
-        for (let i = 0; i < MAX_TEAMS; i++) {
-            const index = Math.floor(Math.random() * teams.length);
-            group.push(teams[index]);
-            teams.splice(index, 1);
-        }
-        groups.push(group);
-    }
-    console.log('groups', groups)
+// export function createGroups(teams) {
+//     const MAX_TEAMS = 4;
+//     const groups = [];
+//     while (teams.length > 0) {
+//         const group = [];
+//         for (let i = 0; i < MAX_TEAMS; i++) {
+//             const index = Math.floor(Math.random() * teams.length);
+//             group.push(teams[index]);
+//             teams.splice(index, 1);
+//         }
+//         groups.push(group);
+//     }
+//     console.log('groups', groups)
 
-    return groups;
-}*/
+//     return groups;
+// }
 
 export function createGroups(teams) {
     let groups = [];
@@ -29,75 +29,75 @@ export function createGroups(teams) {
             teams.splice(position, 1);
         }
         groups.push(group);
+        
+        
     }
-
+    // console.log('groups', groups)
     return groups
 }
 
 
 
-/*export function createGroups(teams) {
+// export function createGroups(teams) {
     
-    let auxArray = teams;
+//     let auxArray = teams;
     
-    const teamsArray = [[], [], [], [], [], [], [], []]
+//     const teamsArray = [[], [], [], [], [], [], [], []]
     
     
-    for (let i = 0; i < teams.length; i++) {
+//     for (let i = 0; i < teams.length; i++) {
         
-        let position = Math.floor(Math.random() * (8));
+//         let position = Math.floor(Math.random() * (8));
 
-        if (teamsArray[position].length < 4) {
-            teamsArray[position].push(teams[i])
+//         if (teamsArray[position].length < 4) {
+//             teamsArray[position].push(teams[i])
             
             
-        } else {
-            let index = teamsArray.findIndex(item => item.length < 4)
+//         } else {
+//             let index = teamsArray.findIndex(item => item.length < 4)
             
-            teamsArray[index].push(teams[i])
+//             teamsArray[index].push(teams[i])
             
-        }
+//         }
         
-    }
+//     }
     
-    console.log( teamsArray)
+//     console.log( teamsArray)
    
     
-    for (let i = 0; i < teamsArray.length; i++) {
+//     for (let i = 0; i < teamsArray.length; i++) {
 
-        for (let j = 0; j < teams.length; j++) {
+//         for (let j = 0; j < teams.length; j++) {
 
-             teamsArray[i].map(team => {
-                console.log('team', team)
-                
+//              teamsArray[i].map(team => {  
 
-                if (teams[j].name == team.name) {
+//                 if (teams[j].name == team.name) {
                     
-                    auxArray.splice(j, 1)
-                }
-            })
+//                     auxArray.splice(j, 1)
+//                 }
+//             })
 
-        }
-    }
-
-
-    // console.log('auxArray', auxArray)
+//         }
+//     }
 
 
-    const results = makeResultsForEachGroup(teamsArray)
-
-    const sortedGroups = sortGroupByPoints(results)
-
-    return sortedGroups
+//     // console.log('auxArray', auxArray)
 
 
+//     // const results = makeResultsForEachGroup(teamsArray)
 
-}*/
+//     // const sortedGroups = sortGroupByPoints(results)
+
+//     return teamsArray
+
+
+
+// }
 
 // cria o resultado de cada confronto
 
 export function makeResultsForEachGroup(groups) {
-    console.log('groups1', groups)
+    
 
 
     for (let i = 0; i < groups.length; i++) {
@@ -123,14 +123,15 @@ export function makeResultsForEachGroup(groups) {
                     let resultb = Math.floor(Math.random() * (7));
 
                     let team = group[j]
-                    let teamb = group[j+k]
+                    let teamb =  k == 2 ? group[k+1] : (k == 1 ? group[k] : group[k-1])
+                    console.log('teamb', groups[teamb])
 
                     if (resulta > resultb) {
 
 
                         groups[i][j] = {
-                            token: team.Token,
-                            name: team.Name,
+                            token: team.token,
+                            name: team.name,
                             points: team.points + 3,
                             matches: 3,
                             victory: team.victory + 1,
@@ -140,16 +141,16 @@ export function makeResultsForEachGroup(groups) {
                             games: [...team.games, {
                                 [round[k-1]]: {
                                     winner: true,
-                                    adversary: teamb.Name,
+                                    adversary: teamb.name,
                                     goals: resulta,
                                     goalsTaken: resultb
                                 }
                             }]
                         }
 
-                        groups[i][j+k] = {
-                            token: teamb.Token,
-                            name: teamb.Name,
+                        groups[teamb] = {
+                            token: teamb.token,
+                            name: teamb.name,
                             matches: 3,
                             points: teamb.points,
                             victory: teamb.victory,
@@ -159,7 +160,7 @@ export function makeResultsForEachGroup(groups) {
                             games: [...teamb.games, {
                                 [round[k-1]]: {
                                     winner: false,
-                                    adversary: team.Name,
+                                    adversary: team.name,
                                     goals: resultb,
                                     goalsTaken: resulta
                                 }
@@ -167,8 +168,8 @@ export function makeResultsForEachGroup(groups) {
                         }
                     } else if (resulta == resultb) {
                         groups[i][j] = {
-                            token: team.Token,
-                            name: team.Name,
+                            token: team.token,
+                            name: team.name,
                             matches: 3,
                             points: team.points + 1,
                             victory: team.victory,
@@ -178,16 +179,16 @@ export function makeResultsForEachGroup(groups) {
                             games: [...team.games, {
                                 [round[k-1]]: {
                                     winner: false,
-                                    adversary: groups[i][j + 1].Name,
+                                    adversary: groups[i][j + 1].name,
                                     goals: resulta,
                                     goalsTaken: resultb
                                 }
                             }]
                         }
 
-                        groups[i][j+k] = {
-                            token: teamb.Token,
-                            name: teamb.Name,
+                        groups[teamb] = {
+                            token: teamb.token,
+                            name: teamb.name,
                             matches: 3,
                             points: teamb.points + 1,
                             victory: teamb.victory,
@@ -197,7 +198,7 @@ export function makeResultsForEachGroup(groups) {
                             games: [...teamb.games, {
                                 [round[k-1]]: {
                                     winner: false,
-                                    adversary: team.Name,
+                                    adversary: team.name,
                                     goals: resultb,
                                     goalsTaken: resulta
                                 }
@@ -205,8 +206,8 @@ export function makeResultsForEachGroup(groups) {
                         }
                     } else {
                         groups[i][j] = {
-                            token: team.Token,
-                            name: team.Name,
+                            token: team.token,
+                            name: team.name,
                             matches: 3,
                             points: team.points,
                             victory: team.victory,
@@ -216,16 +217,16 @@ export function makeResultsForEachGroup(groups) {
                             games: [...team.games, {
                                 [round[k-1]]: {
                                     winner: false,
-                                    adversary: groups[i][j + 1].Name,
+                                    adversary: groups[i][j + 1].name,
                                     goals: resulta,
                                     goalsTaken: resultb
                                 }
                             }]
                         }
 
-                        groups[i][j+k] = {
-                            token: teamb.Token,
-                            name: teamb.Name,
+                        groups[teamb] = {
+                            token: teamb.token,
+                            name: teamb.name,
                             matches: 3,
                             points: teamb.points + 3,
                             victory: teamb.victory + 1,
@@ -235,7 +236,7 @@ export function makeResultsForEachGroup(groups) {
                             games: [...teamb.games, {
                                 [round[k-1]]: {
                                     winner: true,
-                                    adversary: team.Name,
+                                    adversary: team.name,
                                     goals: resultb,
                                     goalsTaken: resulta
                                 }
@@ -265,8 +266,8 @@ export function makeResultsForEachGroup(groups) {
                     if (resulta > resultb) {
 
                         groups[i][j] = {
-                            token: team.Token,
-                            name: team.Name,
+                            token: team.token,
+                            name: team.name,
                             points: team.points + 3,
                             matches: 3,
                             victory: team.victory + 1,
@@ -276,7 +277,7 @@ export function makeResultsForEachGroup(groups) {
                             games: [...team.games, {
                                 [round[k-1]]: {
                                     winner: true,
-                                    adversary: teamb.Name,
+                                    adversary: teamb.name,
                                     goals: resulta,
                                     goalsTaken: resultb
                                 }
@@ -284,8 +285,8 @@ export function makeResultsForEachGroup(groups) {
                         }
 
                         groups[i][j+k] = {
-                            token: teamb.Token,
-                            name: teamb.Name,
+                            token: teamb.token,
+                            name: teamb.name,
                             matches: 3,
                             points: teamb.points,
                             victory: teamb.victory,
@@ -295,7 +296,7 @@ export function makeResultsForEachGroup(groups) {
                             games: [...teamb.games, {
                                 [round[k-1]]: {
                                     winner: false,
-                                    adversary: team.Name,
+                                    adversary: team.name,
                                     goals: resultb,
                                     goalsTaken: resulta
                                 }
@@ -303,8 +304,8 @@ export function makeResultsForEachGroup(groups) {
                         }
                     } else if (resulta == resultb) {
                         groups[i][j] = {
-                            token: team.Token,
-                            name: team.Name,
+                            token: team.token,
+                            name: team.name,
                             matches: 3,
                             points: team.points + 1,
                             victory: team.victory,
@@ -314,7 +315,7 @@ export function makeResultsForEachGroup(groups) {
                             games: [...team.games, {
                                 [round[k-1]]: {
                                     winner: false,
-                                    adversary: groups[i][j + 1].Name,
+                                    adversary: groups[i][j + 1].name,
                                     goals: resulta,
                                     goalsTaken: resultb
                                 }
@@ -322,8 +323,8 @@ export function makeResultsForEachGroup(groups) {
                         }
 
                         groups[i][j+k] = {
-                            token: teamb.Token,
-                            name: teamb.Name,
+                            token: teamb.token,
+                            name: teamb.name,
                             matches: 3,
                             points: teamb.points + 1,
                             victory: teamb.victory,
@@ -333,7 +334,7 @@ export function makeResultsForEachGroup(groups) {
                             games: [...teamb.games, {
                                 [round[k-1]]: {
                                     winner: false,
-                                    adversary: team.Name,
+                                    adversary: team.name,
                                     goals: resultb,
                                     goalsTaken: resulta
                                 }
@@ -341,8 +342,8 @@ export function makeResultsForEachGroup(groups) {
                         }
                     } else {
                         groups[i][j] = {
-                            token: team.Token,
-                            name: team.Name,
+                            token: team.token,
+                            name: team.name,
                             matches: 3,
                             points: team.points,
                             victory: team.victory,
@@ -352,7 +353,7 @@ export function makeResultsForEachGroup(groups) {
                             games: [...team.games, {
                                 [round[k-1]]: {
                                     winner: false,
-                                    adversary: groups[i][j + 1].Name,
+                                    adversary: groups[i][j + 1].name,
                                     goals: resulta,
                                     goalsTaken: resultb
                                 }
@@ -360,8 +361,8 @@ export function makeResultsForEachGroup(groups) {
                         }
 
                         groups[i][j+k] = {
-                            token: teamb.Token,
-                            name: teamb.Name,
+                            token: teamb.token,
+                            name: teamb.name,
                             matches: 3,
                             points: teamb.points + 3,
                             victory: teamb.victory + 1,
@@ -371,7 +372,7 @@ export function makeResultsForEachGroup(groups) {
                             games: [...teamb.games, {
                                 [round[k-1]]: {
                                     winner: true,
-                                    adversary: team.Name,
+                                    adversary: team.name,
                                     goals: resultb,
                                     goalsTaken: resulta
                                 }
@@ -396,8 +397,8 @@ export function makeResultsForEachGroup(groups) {
                     if (resulta > resultb) {
 
                         groups[i][j] = {
-                            token: team.Token,
-                            name: team.Name,
+                            token: team.token,
+                            name: team.name,
                             points: team.points + 3,
                             matches: 3,
                             victory: team.victory + 1,
@@ -405,9 +406,9 @@ export function makeResultsForEachGroup(groups) {
                             defeat: team.defeat,
                             goalsPro: team.goalsPro + (resulta - resultb),
                             games: [...team.games, {
-                                gameThree: {
+                                gameOne: {
                                     winner: true,
-                                    adversary: teamb.Name,
+                                    adversary: teamb.name,
                                     goals: resulta,
                                     goalsTaken: resultb
                                 }
@@ -415,8 +416,8 @@ export function makeResultsForEachGroup(groups) {
                         }
 
                         groups[i][j+k] = {
-                            token: teamb.Token,
-                            name: teamb.Name,
+                            token: teamb.token,
+                            name: teamb.name,
                             matches: 3,
                             points: teamb.points,
                             victory: teamb.victory,
@@ -424,9 +425,9 @@ export function makeResultsForEachGroup(groups) {
                             defeat: teamb.defeat + 1,
                             goalsPro: teamb.goalsPro + (resultb - resulta),
                             games: [...teamb.games, {
-                                gameThree: {
+                                gameOne: {
                                     winner: false,
-                                    adversary: team.Name,
+                                    adversary: team.name,
                                     goals: resultb,
                                     goalsTaken: resulta
                                 }
@@ -434,8 +435,8 @@ export function makeResultsForEachGroup(groups) {
                         }
                     } else if (resulta == resultb) {
                         groups[i][j] = {
-                            token: team.Token,
-                            name: team.Name,
+                            token: team.token,
+                            name: team.name,
                             matches: 3,
                             points: team.points + 1,
                             victory: team.victory,
@@ -443,9 +444,9 @@ export function makeResultsForEachGroup(groups) {
                             defeat: team.defeat,
                             goalsPro: team.goalsPro + (resulta - resultb),
                             games: [...team.games, {
-                                gameThree: {
+                                gameOne: {
                                     winner: false,
-                                    adversary: groups[i][j + 1].Name,
+                                    adversary: groups[i][j + 1].name,
                                     goals: resulta,
                                     goalsTaken: resultb
                                 }
@@ -453,8 +454,8 @@ export function makeResultsForEachGroup(groups) {
                         }
 
                         groups[i][j+k] = {
-                            token: teamb.Token,
-                            name: teamb.Name,
+                            token: teamb.token,
+                            name: teamb.name,
                             matches: 3,
                             points: teamb.points + 1,
                             victory: teamb.victory,
@@ -462,9 +463,9 @@ export function makeResultsForEachGroup(groups) {
                             defeat: teamb.defeat,
                             goalsPro: teamb.goalsPro + (resultb - resulta),
                             games: [...teamb.games, {
-                                gameThree: {
+                                gameOne: {
                                     winner: false,
-                                    adversary: team.Name,
+                                    adversary: team.name,
                                     goals: resultb,
                                     goalsTaken: resulta
                                 }
@@ -472,8 +473,8 @@ export function makeResultsForEachGroup(groups) {
                         }
                     } else {
                         groups[i][j] = {
-                            token: team.Token,
-                            name: team.Name,
+                            token: team.token,
+                            name: team.name,
                             matches: 3,
                             points: team.points,
                             victory: team.victory,
@@ -481,9 +482,9 @@ export function makeResultsForEachGroup(groups) {
                             defeat: team.defeat + 1,
                             goalsPro: team.goalsPro + (resulta - resultb),
                             games: [...team.games, {
-                                gameThree: {
+                                gameOne: {
                                     winner: false,
-                                    adversary: groups[i][j + 1].Name,
+                                    adversary: groups[i][j + 1].name,
                                     goals: resulta,
                                     goalsTaken: resultb
                                 }
@@ -491,8 +492,8 @@ export function makeResultsForEachGroup(groups) {
                         }
 
                         groups[i][j+k] = {
-                            token: teamb.Token,
-                            name: teamb.Name,
+                            token: teamb.token,
+                            name: teamb.name,
                             matches: 3,
                             points: teamb.points + 3,
                             victory: teamb.victory + 1,
@@ -500,9 +501,9 @@ export function makeResultsForEachGroup(groups) {
                             defeat: teamb.defeat,
                             goalsPro: teamb.goalsPro + (resultb - resulta),
                             games: [...teamb.games, {
-                                gameThree: {
+                                gameOne: {
                                     winner: true,
-                                    adversary: team.Name,
+                                    adversary: team.name,
                                     goals: resultb,
                                     goalsTaken: resulta
                                 }

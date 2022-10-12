@@ -65,6 +65,7 @@ export function Groups() {
         })
 
         const transformedArrayData = await getResults(data)
+        // console.log('transformedArrayData', transformedArrayData)
         let groupsWithResults = await makeResultsForEachGroup(transformedArrayData)
         let sortedGroups = await sortGroupByPoints(groupsWithResults)
 
@@ -96,7 +97,7 @@ export function Groups() {
                     tableGroups.map(group => {
                         group.map((team, index) => {
 
-                            console.log(team);
+                            
                             if(index == 0 || index == 2){
                                 return (
                                     <div>

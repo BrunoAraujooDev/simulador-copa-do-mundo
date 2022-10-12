@@ -1,0 +1,49 @@
+export function PlayoffComponent({data}){
+
+
+
+    return(
+        <section>
+            <div>
+                <h3>{data[0]}.name</h3>
+                <span>X</span>
+                <h3>{data[3]}.name</h3>
+            </div>
+            <div>
+                <h3>{data[4]}.name</h3>
+                <span>X</span>
+                <h3>{data[7]}.name</h3>
+            </div>
+            <div>
+                <h3>{data[8]}.name</h3>
+                <span>X</span>
+                <h3>{data[11]}.name</h3>
+            </div>
+            <div>
+                <h3>{data[12]}.name</h3>
+                <span>X</span>
+                <h3>{data[15]}.name</h3>
+            </div>
+            <div> 
+                <h3>{data[2]}.name</h3>
+                <span>X</span>
+                <h3>{data[1]}.name</h3>
+            </div>
+            <div>
+                <h3>{data[6]}.name</h3>
+                <span>X</span>
+                <h3>{data[5]}.name</h3>
+            </div>
+            <div>
+                <h3>{data[10]}.name</h3>
+                <span>X</span>
+                <h3>{data[9]}.name</h3>
+            </div>
+            <div>
+                <h3>{data[14]}.name</h3>
+                <span>X</span>
+                <h3>{data[13]}.name</h3>
+            </div>
+        </section>
+    )
+}
