@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createGroups } from "../../util/createResults";
+import { createGroups, makeResultsForEachGroup } from "../../util/createResults";
 import { getAllTeams } from "../../util/getServices";
 import { GroupsContainer, LoadingMessage, TableGroups } from "./style";
 
@@ -13,13 +13,13 @@ export function Groups() {
 
 
     async function getCountries() {
-        const teams = await getAllTeams()
+        // const teams = await getAllTeams()
 
 
+        const data = []
+        await time.Result.map(item => {
 
-        const data = time.Result.map(item => {
-
-            return {
+            data.push( {
                 token: item.Token,
                 name: item.Name,
                 points: 0,
@@ -54,13 +54,13 @@ export function Groups() {
                         }
                     }
                 ]
-            }
+            })
         })
 
-        const transformedArrayData = getResults(data)
-        console.log('transformedArrayData', transformedArrayData)
+        const transformedArrayData = await getResults(data)
+        let groupsWithResults = await makeResultsForEachGroup(transformedArrayData)
 
-        setTableGroups(transformedArrayData)
+        setTableGroups(groupsWithResults)
     }
 
     function getResults(teams) {
@@ -96,7 +96,7 @@ export function Groups() {
                                 </thead>
                                 <tbody>
                                     {
-                                        group.forEach((country, idx) => {
+                                        group.map((country, idx) => {
                                             return (
                                                 <tr key={idx}>
                                                     <td>{idx + 1}  {country.name}</td>

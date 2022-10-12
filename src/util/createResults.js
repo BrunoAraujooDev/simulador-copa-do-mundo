@@ -1,5 +1,43 @@
-export function createGroups(teams) {
+/*export function createGroups(teams) {
+    const MAX_TEAMS = 4;
+    const groups = [];
+    while (teams.length > 0) {
+        const group = [];
+        for (let i = 0; i < MAX_TEAMS; i++) {
+            const index = Math.floor(Math.random() * teams.length);
+            group.push(teams[index]);
+            teams.splice(index, 1);
+        }
+        groups.push(group);
+    }
+    console.log('groups', groups)
 
+    return groups;
+}*/
+
+export function createGroups(teams) {
+    let groups = [];
+    let group;
+    const MAX_GROUP_NUMBERS = 8
+    const MAX_GROUP_MEMBERS = 4
+
+    for (let i = 0; i < MAX_GROUP_NUMBERS; i++) {
+        group = [];
+        for (let j = 0; j < MAX_GROUP_MEMBERS; j++) {
+            let position = Math.floor(Math.random() * (teams.length));
+            group.push((teams[position]));
+            teams.splice(position, 1);
+        }
+        groups.push(group);
+    }
+
+    return groups
+}
+
+
+
+/*export function createGroups(teams) {
+    
     let auxArray = teams;
     
     const teamsArray = [[], [], [], [], [], [], [], []]
@@ -7,13 +45,14 @@ export function createGroups(teams) {
     
     for (let i = 0; i < teams.length; i++) {
         
-        let position = Math.floor(Math.random() * (8 - 0) + 0);
-        
+        let position = Math.floor(Math.random() * (8));
+
         if (teamsArray[position].length < 4) {
             teamsArray[position].push(teams[i])
             
+            
         } else {
-            const index = teamsArray.findIndex(item => item.length != 4)
+            let index = teamsArray.findIndex(item => item.length < 4)
             
             teamsArray[index].push(teams[i])
             
@@ -21,23 +60,29 @@ export function createGroups(teams) {
         
     }
     
-    for (let i = 0; i < teams.length; i++) {
-        
-        teamsArray.forEach(group => {
-            
-            let hasInArray = group.findIndex(team => teams[i].name == team.name && true)
-            
-            if(hasInArray !=  -1){
+    console.log( teamsArray)
+   
+    
+    for (let i = 0; i < teamsArray.length; i++) {
+
+        for (let j = 0; j < teams.length; j++) {
+
+             teamsArray[i].map(team => {
+                console.log('team', team)
                 
-                 auxArray.splice(i, 1)
-                }  
-                
-            } )
-            
+
+                if (teams[j].name == team.name) {
+                    
+                    auxArray.splice(j, 1)
+                }
+            })
+
         }
-        
-        console.log('auxArray', auxArray)
-     
+    }
+
+
+    // console.log('auxArray', auxArray)
+
 
     const results = makeResultsForEachGroup(teamsArray)
 
@@ -47,33 +92,36 @@ export function createGroups(teams) {
 
 
 
-}
+}*/
 
 // cria o resultado de cada confronto
 
-function makeResultsForEachGroup(groups) {
-    //console.log('groups', groups)
+export function makeResultsForEachGroup(groups) {
+    console.log('groups1', groups)
 
 
     for (let i = 0; i < groups.length; i++) {
 
         let group = groups[i]
+        let matches = 3
 
-        for (let j = 0; j < group.length; j++) {
+        for (let j = 0; j < matches; j++) {
 
-            let team = group[j]
-            
+           
 
-            for (let k = 0; k < team.games.length; k++) {
+            if (j == 0) {
 
-                let resulta = Math.floor(Math.random() * (7 - 0) + 0);
-                let resultb = Math.floor(Math.random() * (7 - 0) + 0);
+                for(let k = 1; k <= 3; k++){
 
-                
-                if(k==0){
-                    if (resulta > resultb ) {
+                    let resulta = Math.floor(Math.random() * (7));
+                    let resultb = Math.floor(Math.random() * (7));
 
-                        groups[i][j] =  {
+                    let team = group[j]
+                    let teamb = group[j+k]
+
+                    if (resulta > resultb) {
+
+                        groups[i][j] = {
                             token: team.Token,
                             name: team.Name,
                             points: team.points + 3,
@@ -85,19 +133,38 @@ function makeResultsForEachGroup(groups) {
                             games: [...team.games, {
                                 gameOne: {
                                     winner: true,
-                                    adversary: groups[i][j + 1].Name,
+                                    adversary: teamb.Name,
                                     goals: resulta,
                                     goalsTaken: resultb
                                 }
                             }]
                         }
+
+                        groups[i][j+k] = {
+                            token: teamb.Token,
+                            name: teamb.Name,
+                            matches: 3,
+                            points: teamb.points,
+                            victory: teamb.victory,
+                            draw: teamb.draw,
+                            defeat: teamb.defeat + 1,
+                            goalsPro: teamb.goalsPro + resultb,
+                            games: [...teamb.games, {
+                                gameOne: {
+                                    winner: false,
+                                    adversary: team.Name,
+                                    goals: resultb,
+                                    goalsTaken: resulta
+                                }
+                            }]
+                        }
                     } else if (resulta == resultb) {
-                        groups[i][j] =  {
+                        groups[i][j] = {
                             token: team.Token,
                             name: team.Name,
                             matches: 3,
-                            victory: team.victory,
                             points: team.points + 1,
+                            victory: team.victory,
                             draw: team.draw + 1,
                             defeat: team.defeat,
                             goalsPro: team.goalsPro + resulta,
@@ -110,8 +177,27 @@ function makeResultsForEachGroup(groups) {
                                 }
                             }]
                         }
+
+                        groups[i][j+k] = {
+                            token: teamb.Token,
+                            name: teamb.Name,
+                            matches: 3,
+                            points: teamb.points + 1,
+                            victory: teamb.victory,
+                            draw: teamb.draw + 1,
+                            defeat: teamb.defeat,
+                            goalsPro: teamb.goalsPro + resultb,
+                            games: [...teamb.games, {
+                                gameOne: {
+                                    winner: false,
+                                    adversary: team.Name,
+                                    goals: resultb,
+                                    goalsTaken: resulta
+                                }
+                            }]
+                        }
                     } else {
-                        groups[i][j] =  {
+                        groups[i][j] = {
                             token: team.Token,
                             name: team.Name,
                             matches: 3,
@@ -120,7 +206,7 @@ function makeResultsForEachGroup(groups) {
                             draw: team.draw,
                             defeat: team.defeat + 1,
                             goalsPro: team.goalsPro + resulta,
-                            games: [...team.games,{
+                            games: [...team.games, {
                                 k: {
                                     winner: false,
                                     adversary: groups[i][j + 1].Name,
@@ -129,151 +215,311 @@ function makeResultsForEachGroup(groups) {
                                 }
                             }]
                         }
-                    }
-                } else if( k == 1){
-                    if (resulta > resultb ) {
 
-                        groups[i][j] =  {
-                            token: team.Token,
-                            name: team.Name,
-                            points: team.points + 3,
+                        groups[i][j+k] = {
+                            token: teamb.Token,
+                            name: teamb.Name,
                             matches: 3,
-                            victory: team.victory + 1,
-                            draw: team.draw,
-                            defeat: team.defeat,
-                            goalsPro: team.goalsPro + resulta,
-                            games: [...team.games, {
-                                gameTwo: {
+                            points: teamb.points + 3,
+                            victory: teamb.victory + 1,
+                            draw: teamb.draw,
+                            defeat: teamb.defeat,
+                            goalsPro: teamb.goalsPro + resultb,
+                            games: [...teamb.games, {
+                                gameOne: {
                                     winner: true,
-                                    adversary: groups[i][j + 1].Name,
-                                    goals: resulta,
-                                    goalsTaken: resultb
-                                }
-                            }]
-                        }
-                    } else if (resulta == resultb) {
-                        groups[i][j] =  {
-                            token: team.Token,
-                            name: team.Name,
-                            matches: 3,
-                            victory: team.victory,
-                            points: team.points + 1,
-                            draw: team.draw + 1,
-                            defeat: team.defeat,
-                            goalsPro: team.goalsPro + resulta,
-                            games: [...team.games, {
-                                gameTwo: {
-                                    winner: false,
-                                    adversary: groups[i][j + 1].Name,
-                                    goals: resulta,
-                                    goalsTaken: resultb
-                                }
-                            }]
-                        }
-                    } else {
-                        groups[i][j] =  {
-                            token: team.Token,
-                            name: team.Name,
-                            matches: 3,
-                            points: team.points,
-                            victory: team.victory,
-                            draw: team.draw,
-                            defeat: team.defeat + 1,
-                            goalsPro: team.goalsPro + resulta,
-                            games: [...team.games,{
-                                gameTwo: {
-                                    winner: false,
-                                    adversary: groups[i][j + 1].Name,
-                                    goals: resulta,
-                                    goalsTaken: resultb
+                                    adversary: team.Name,
+                                    goals: resultb,
+                                    goalsTaken: resulta
                                 }
                             }]
                         }
                     }
-                } else {
-                    if (resulta > resultb ) {
 
-                        groups[i][j] =  {
-                            token: team.Token,
-                            name: team.Name,
-                            points: team.points + 3,
-                            matches: 3,
-                            victory: team.victory + 1,
-                            draw: team.draw,
-                            defeat: team.defeat,
-                            goalsPro: team.goalsPro + resulta,
-                            games: [...team.games, {
-                                gameThree: {
-                                    winner: true,
-                                    adversary: groups[i][j + 1].Name,
-                                    goals: resulta,
-                                    goalsTaken: resultb
-                                }
-                            }]
-                        }
-                    } else if (resulta == resultb) {
-                        groups[i][j] =  {
-                            token: team.Token,
-                            name: team.Name,
-                            matches: 3,
-                            victory: team.victory,
-                            points: team.points + 1,
-                            draw: team.draw + 1,
-                            defeat: team.defeat,
-                            goalsPro: team.goalsPro + resulta,
-                            games: [...team.games, {
-                                gameThree: {
-                                    winner: false,
-                                    adversary: groups[i][j + 1].Name,
-                                    goals: resulta,
-                                    goalsTaken: resultb
-                                }
-                            }]
-                        }
-                    } else {
-                        groups[i][j] =  {
-                            token: team.Token,
-                            name: team.Name,
-                            matches: 3,
-                            points: team.points,
-                            victory: team.victory,
-                            draw: team.draw,
-                            defeat: team.defeat + 1,
-                            goalsPro: team.goalsPro + resulta,
-                            games: [...team.games,{
-                                gameThree: {
-                                    winner: false,
-                                    adversary: groups[i][j + 1].Name,
-                                    goals: resulta,
-                                    goalsTaken: resultb
-                                }
-                            }]
-                        }
-                    }
+
+
                 }
 
+
+            } else if(j == 1){
+
+                for(let k = 1; k <= 2; k++){
+
+                    let resulta = Math.floor(Math.random() * (7));
+                    let resultb = Math.floor(Math.random() * (7));
+
+                    let team = group[j]
+                    let teamb = group[j+k]
+
+                    if (resulta > resultb) {
+
+                        groups[i][j] = {
+                            token: team.Token,
+                            name: team.Name,
+                            points: team.points + 3,
+                            matches: 3,
+                            victory: team.victory + 1,
+                            draw: team.draw,
+                            defeat: team.defeat,
+                            goalsPro: team.goalsPro + resulta,
+                            games: [...team.games, {
+                                gameOne: {
+                                    winner: true,
+                                    adversary: teamb.Name,
+                                    goals: resulta,
+                                    goalsTaken: resultb
+                                }
+                            }]
+                        }
+
+                        groups[i][j+k] = {
+                            token: teamb.Token,
+                            name: teamb.Name,
+                            matches: 3,
+                            points: teamb.points,
+                            victory: teamb.victory,
+                            draw: teamb.draw,
+                            defeat: teamb.defeat + 1,
+                            goalsPro: teamb.goalsPro + resultb,
+                            games: [...teamb.games, {
+                                gameOne: {
+                                    winner: false,
+                                    adversary: team.Name,
+                                    goals: resultb,
+                                    goalsTaken: resulta
+                                }
+                            }]
+                        }
+                    } else if (resulta == resultb) {
+                        groups[i][j] = {
+                            token: team.Token,
+                            name: team.Name,
+                            matches: 3,
+                            points: team.points + 1,
+                            victory: team.victory,
+                            draw: team.draw + 1,
+                            defeat: team.defeat,
+                            goalsPro: team.goalsPro + resulta,
+                            games: [...team.games, {
+                                k: {
+                                    winner: false,
+                                    adversary: groups[i][j + 1].Name,
+                                    goals: resulta,
+                                    goalsTaken: resultb
+                                }
+                            }]
+                        }
+
+                        groups[i][j+k] = {
+                            token: teamb.Token,
+                            name: teamb.Name,
+                            matches: 3,
+                            points: teamb.points + 1,
+                            victory: teamb.victory,
+                            draw: teamb.draw + 1,
+                            defeat: teamb.defeat,
+                            goalsPro: teamb.goalsPro + resultb,
+                            games: [...teamb.games, {
+                                gameOne: {
+                                    winner: false,
+                                    adversary: team.Name,
+                                    goals: resultb,
+                                    goalsTaken: resulta
+                                }
+                            }]
+                        }
+                    } else {
+                        groups[i][j] = {
+                            token: team.Token,
+                            name: team.Name,
+                            matches: 3,
+                            points: team.points,
+                            victory: team.victory,
+                            draw: team.draw,
+                            defeat: team.defeat + 1,
+                            goalsPro: team.goalsPro + resulta,
+                            games: [...team.games, {
+                                k: {
+                                    winner: false,
+                                    adversary: groups[i][j + 1].Name,
+                                    goals: resulta,
+                                    goalsTaken: resultb
+                                }
+                            }]
+                        }
+
+                        groups[i][j+k] = {
+                            token: teamb.Token,
+                            name: teamb.Name,
+                            matches: 3,
+                            points: teamb.points + 3,
+                            victory: teamb.victory + 1,
+                            draw: teamb.draw,
+                            defeat: teamb.defeat,
+                            goalsPro: teamb.goalsPro + resultb,
+                            games: [...teamb.games, {
+                                gameOne: {
+                                    winner: true,
+                                    adversary: team.Name,
+                                    goals: resultb,
+                                    goalsTaken: resulta
+                                }
+                            }]
+                        }
+                    }
+
+
+
+                }
+
+            } else {
+
+                let k = 1;
+
+                let resulta = Math.floor(Math.random() * (7));
+                let resultb = Math.floor(Math.random() * (7));
+
+                    let team = group[j]
+                    let teamb = group[j+k]
+
+                    if (resulta > resultb) {
+
+                        groups[i][j] = {
+                            token: team.Token,
+                            name: team.Name,
+                            points: team.points + 3,
+                            matches: 3,
+                            victory: team.victory + 1,
+                            draw: team.draw,
+                            defeat: team.defeat,
+                            goalsPro: team.goalsPro + resulta,
+                            games: [...team.games, {
+                                gameOne: {
+                                    winner: true,
+                                    adversary: teamb.Name,
+                                    goals: resulta,
+                                    goalsTaken: resultb
+                                }
+                            }]
+                        }
+
+                        groups[i][j+k] = {
+                            token: teamb.Token,
+                            name: teamb.Name,
+                            matches: 3,
+                            points: teamb.points,
+                            victory: teamb.victory,
+                            draw: teamb.draw,
+                            defeat: teamb.defeat + 1,
+                            goalsPro: teamb.goalsPro + resultb,
+                            games: [...teamb.games, {
+                                gameOne: {
+                                    winner: false,
+                                    adversary: team.Name,
+                                    goals: resultb,
+                                    goalsTaken: resulta
+                                }
+                            }]
+                        }
+                    } else if (resulta == resultb) {
+                        groups[i][j] = {
+                            token: team.Token,
+                            name: team.Name,
+                            matches: 3,
+                            points: team.points + 1,
+                            victory: team.victory,
+                            draw: team.draw + 1,
+                            defeat: team.defeat,
+                            goalsPro: team.goalsPro + resulta,
+                            games: [...team.games, {
+                                k: {
+                                    winner: false,
+                                    adversary: groups[i][j + 1].Name,
+                                    goals: resulta,
+                                    goalsTaken: resultb
+                                }
+                            }]
+                        }
+
+                        groups[i][j+k] = {
+                            token: teamb.Token,
+                            name: teamb.Name,
+                            matches: 3,
+                            points: teamb.points + 1,
+                            victory: teamb.victory,
+                            draw: teamb.draw + 1,
+                            defeat: teamb.defeat,
+                            goalsPro: teamb.goalsPro + resultb,
+                            games: [...teamb.games, {
+                                gameOne: {
+                                    winner: false,
+                                    adversary: team.Name,
+                                    goals: resultb,
+                                    goalsTaken: resulta
+                                }
+                            }]
+                        }
+                    } else {
+                        groups[i][j] = {
+                            token: team.Token,
+                            name: team.Name,
+                            matches: 3,
+                            points: team.points,
+                            victory: team.victory,
+                            draw: team.draw,
+                            defeat: team.defeat + 1,
+                            goalsPro: team.goalsPro + resulta,
+                            games: [...team.games, {
+                                k: {
+                                    winner: false,
+                                    adversary: groups[i][j + 1].Name,
+                                    goals: resulta,
+                                    goalsTaken: resultb
+                                }
+                            }]
+                        }
+
+                        groups[i][j+k] = {
+                            token: teamb.Token,
+                            name: teamb.Name,
+                            matches: 3,
+                            points: teamb.points + 3,
+                            victory: teamb.victory + 1,
+                            draw: teamb.draw,
+                            defeat: teamb.defeat,
+                            goalsPro: teamb.goalsPro + resultb,
+                            games: [...teamb.games, {
+                                gameOne: {
+                                    winner: true,
+                                    adversary: team.Name,
+                                    goals: resultb,
+                                    goalsTaken: resulta
+                                }
+                            }]
+                        }
+                    }
+
+
+
                 
+            }        
 
-
-            }
+            return groups;
         }
     }
-
-
-    return groups;
 }
 
 // ordena o grupo com base nos pontos obtidos
 
-function sortGroupByPoints(groups){
+function sortGroupByPoints(groups) {
 
-    for(let i = 0; i <  groups.length; i++){
+    for (let i = 0; i < groups.length; i++) {
 
         groups[i].sort((team, team2) => {
 
-            if(team.points > team2.points){
+            if (team.points > team2.points) {
                 return team
-            } else if(team.points == team2.points){
+            } else if (team.points == team2.points) {
                 return team.goalsPro > team2.goalsPro ? team : team2
             } else {
                 return team2
