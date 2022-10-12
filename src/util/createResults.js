@@ -115,10 +115,6 @@ export function makeResultsForEachGroup(groups) {
                     'gameTwo',
                     'gameThree']
 
-                    // let rounds = {gameOne: 'gameOne',
-                    //     gameTwo: 'gameTwo',
-                    //     gameThree: 'gameThree'}
-                   
                 
 
                 for(let k = 1; k <= 3; k++){
@@ -131,7 +127,6 @@ export function makeResultsForEachGroup(groups) {
 
                     if (resulta > resultb) {
 
-                        // let foundRound = (k - 1) !== 0 ? ((k - 1) === 1 ? round[k-1] : round[k  - 1]) : round[k-1]
 
                         groups[i][j] = {
                             token: team.Token,
@@ -522,7 +517,7 @@ export function makeResultsForEachGroup(groups) {
 
         }
     }
-    console.log('groups', groups)
+    
     return groups;
 }
 
@@ -535,15 +530,15 @@ export function sortGroupByPoints(groups) {
         groups[i].sort((team, team2) => {
 
             if (team.points > team2.points) {
-                return team
+                return -1
             } else if (team.points == team2.points) {
-                return team.goalsPro > team2.goalsPro ? team : team2
+                return team.goalsPro > team2.goalsPro ? -1 : 1
             } else {
-                return team2
+                return 1
             }
         })
     }
-
+    
     return groups;
 
 }
