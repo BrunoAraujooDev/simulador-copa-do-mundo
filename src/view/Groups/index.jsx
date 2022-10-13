@@ -19,7 +19,7 @@ export function Groups() {
 
     const [tableGroups, setTableGroups] = useState([]);
     const [round, setRound] = useState(1);
-    //const [update, setUpdate] = useState(true)
+    // const [update, setUpdate] = useState(true)
     
 
 
@@ -29,10 +29,10 @@ export function Groups() {
         //setUpdate(false)
 
 
-        const data = []
-        await time.Result.map(item => {
+        let data = []
+           data = await time.Result.map(item => {
 
-            data.push( {
+           return {
                 token: item.Token,
                 name: item.Name,
                 points: 0,
@@ -41,18 +41,15 @@ export function Groups() {
                 draw: 0,
                 defeat: 0,
                 goalsPro: 0,
-                games: [
-                    
-                ]
-            })
+                games: []
+            }
         })
 
         const transformedArrayData = await getResults(data)
-        console.log('transformedArrayData', transformedArrayData)
         let groupsWithResults = await makeResultsForEachGroup(transformedArrayData)
         let sortedGroups = await sortGroupByPoints(groupsWithResults)
 
-        setTableGroups(sortedGroups)
+        return sortedGroups
     }
 
     function getResults(teams) {
@@ -65,11 +62,9 @@ export function Groups() {
 
 
     useEffect(() => {
-        
-        
-        //if( update ){
-            getCountries()
-        //}
+         
+            getCountries().then((data) => setTableGroups(data))
+                     
 
     }, [])
 
@@ -78,30 +73,52 @@ export function Groups() {
             
 
             <ResultsDiv>
-                <RoundButton>{round} rodada </RoundButton>
-                {/* {
+                <RoundButton onClick={() => setRound(state => state + 1)}>{round} rodada </RoundButton>
+                { 
                     tableGroups &&
 
                     tableGroups.map(group => {
                         group.map((team, index) => {
-                            console.log('team', team)
-
                             
-                            if(index == 0 || index == 2){
+                            if((index == 0 || index == 2) && round == 1){
                                 return (
                                     <div>
                                         <div>
-                                            {team?.name} {team?.games[numeroRodadas[round]].goals} 
+                                            {team?.name} {team?.games[numeroRodadas[round]]?.goals} 
                                             X 
-                                            {team?.games[numeroRodadas[round]]?.goalsTaken} {team?.games[numeroRodadas[round]].adversary} 
+                                            {team?.games[numeroRodadas[round]]?.goalsTaken} {team?.games[numeroRodadas[round]]?.adversary} 
                                         </div>
                                     </div>
                                 )
-                            }
+                            }  
+
+                            if(round == 2 && (index == 0 || index == 1)){
+                                return (
+                                    <div>
+                                        <div>
+                                            {team?.name} {team?.games[numeroRodadas[round]]?.goals} 
+                                            X 
+                                            {team?.games[numeroRodadas[round]]?.goalsTaken} {team?.games[numeroRodadas[round]]?.adversary} 
+                                        </div>
+                                    </div>
+                                )
+                            } 
+                            
+                            if(round == 3 && (index == 0 || index == 1)){
+                                return (
+                                    <div>
+                                        <div>
+                                            {team?.name} {team?.games[numeroRodadas[round]]?.goals} 
+                                            X 
+                                            {team?.games[numeroRodadas[round]]?.goalsTaken} {team?.games[numeroRodadas[round]]?.adversary} 
+                                        </div>
+                                    </div>
+                                )
+                            } 
                         })
                         
                         
-                    })} */}
+                    })} 
                 
 
             </ResultsDiv>

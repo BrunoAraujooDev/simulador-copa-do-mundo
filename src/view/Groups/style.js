@@ -15,7 +15,6 @@ export const ResultsDiv = styled.section`
     flex-direction: column;
     align-items: center;
     /* border-bottom: 1px solid ${prop => prop.theme['gray-text']}; */
-
 `
 
 export const RoundButton = styled.button`
