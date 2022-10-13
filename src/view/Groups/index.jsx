@@ -91,20 +91,21 @@ export function Groups() {
 
             <ResultsDiv>
                 <RoundButton>{round} rodada </RoundButton>
-                {
+                {/* {
                     tableGroups &&
 
                     tableGroups.map(group => {
                         group.map((team, index) => {
+                            console.log('team', team)
 
                             
                             if(index == 0 || index == 2){
                                 return (
                                     <div>
                                         <div>
-                                            {team[index]?.name} {team[index]?.games[numeroRodadas[round]].goals} 
+                                            {team?.name} {team?.games[numeroRodadas[round]].goals} 
                                             X 
-                                            {team[index]?.games[numeroRodadas[round]]?.goalsTaken} {team[index]?.games[numeroRodadas[round]].adversary} 
+                                            {team?.games[numeroRodadas[round]]?.goalsTaken} {team?.games[numeroRodadas[round]].adversary} 
                                         </div>
                                     </div>
                                 )
@@ -112,7 +113,7 @@ export function Groups() {
                         })
                         
                         
-                    })}
+                    })} */}
                 
 
             </ResultsDiv>
@@ -140,7 +141,7 @@ export function Groups() {
                                             group.map((country, idx) => {
                                                 return (
                                                     <tr key={idx}>
-                                                        <td>{idx + 1}  {country.name}</td>
+                                                        <td style={{borderRight: '1px solid #CCCCC8'}}>{idx + 1}  {country.name}</td>
                                                         <td>{country.matches}</td>
                                                         <td>{country.points}</td>
                                                         <td>{country.victory}</td>

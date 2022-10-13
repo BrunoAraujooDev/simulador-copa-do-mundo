@@ -111,9 +111,11 @@ export function makeResultsForEachGroup(groups) {
 
             if (j == 0) {
 
-                let round = [ 'gameOne',
+                let round = [ 
+                    'gameOne',
                     'gameTwo',
-                    'gameThree']
+                    'gameThree'
+                ]
 
                 
 
@@ -124,7 +126,7 @@ export function makeResultsForEachGroup(groups) {
 
                     let team = group[j]
                     let teamb =  k == 2 ? group[k+1] : (k == 1 ? group[k] : group[k-1])
-                    console.log('teamb', groups[teamb])
+                    // console.log('teamb', groups[teamb])
 
                     if (resulta > resultb) {
 

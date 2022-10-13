@@ -14,7 +14,7 @@ export const ResultsDiv = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-bottom: 1px solid ${prop => prop.theme['gray-background']};
+    /* border-bottom: 1px solid ${prop => prop.theme['gray-text']}; */
 
 `
 
@@ -25,7 +25,7 @@ export const RoundButton = styled.button`
     font-size: 1.3rem;
     border: none;
     background-color: ${prop => prop.theme['white']};
-    border-bottom: 3px solid ${prop => prop.theme['green-base']};
+    border-bottom: 4px solid ${prop => prop.theme['green-base']};
     padding-bottom: 0.8rem;
 `
 
@@ -33,7 +33,7 @@ export const GroupsContainer = styled.section`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
-    margin-top: 8.37rem;
+    margin-top: 2.37rem;
     padding: 2rem 5rem;
     width: 100vw;
 `
@@ -50,7 +50,7 @@ export const TableGroups = styled.table`
     min-height: 10rem;
 
     thead{
-        border-bottom: 1px solid ${prop => prop.theme['gray-background']};
+        border-bottom: 1px solid ${prop => prop.theme['gray-border']};
     }
 
 
