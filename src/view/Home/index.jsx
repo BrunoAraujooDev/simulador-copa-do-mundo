@@ -6,7 +6,7 @@ export function Home(){
     return (
         <HomeContainer>
             <Header/>
-            <Outlet/>
+            <Outlet />
         </HomeContainer>
     )
 }
