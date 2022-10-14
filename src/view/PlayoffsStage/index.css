@@ -1,0 +1,15 @@
+.winner{
+    border: 1px solid #06AA48;
+    padding: 0.5rem;
+    border-radius: 20px;
+    color: #05883A;
+}
+
+.loser {
+
+    border: 1px solid #7A1921;
+    padding: 0.5rem;
+    border-radius: 20px;
+    color: #5c141a;
+}
+
