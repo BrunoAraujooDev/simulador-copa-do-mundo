@@ -13,6 +13,10 @@ const GlobalStyled = createGlobalStyle`
         font:400 1rem Roboto, sans-serif;
     }
 
+    a{
+        text-decoration: none;
+    }
+
     
 `
 
