@@ -14,7 +14,6 @@ export const ResultsDiv = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* border-bottom: 1px solid ${prop => prop.theme['gray-text']}; */
 `
 
 export const RoundButton = styled.button`
@@ -26,6 +25,23 @@ export const RoundButton = styled.button`
     background-color: ${prop => prop.theme['white']};
     border-bottom: 4px solid ${prop => prop.theme['green-base']};
     padding-bottom: 0.8rem;
+`
+
+export const MatchesDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 2rem;
+`
+
+export const MatchDiv = styled.div`
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `
 
 export const GroupsContainer = styled.section`
