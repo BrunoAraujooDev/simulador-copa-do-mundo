@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { PlayoffComponent } from "./components/PlayoffsStage";
+import { PlayoffComponent } from "./view/PlayoffsStage";
 import { StartSimulation } from "./components/StartSimulation";
 import { Groups } from "./view/Groups";
 import { Home } from "./view/Home";

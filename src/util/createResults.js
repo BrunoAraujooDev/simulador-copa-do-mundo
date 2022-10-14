@@ -3,12 +3,12 @@
 export function createGroups(teams) {
     let groups = [];
     let group;
-    const MAX_GROUP_NUMBERS = 8
-    const MAX_GROUP_MEMBERS = 4
+    const max_group_numbers = 8
+    const max_group_members = 4
 
-    for (let i = 0; i < MAX_GROUP_NUMBERS; i++) {
+    for (let i = 0; i < max_group_numbers; i++) {
         group = [];
-        for (let j = 0; j < MAX_GROUP_MEMBERS; j++) {
+        for (let j = 0; j < max_group_members; j++) {
             let position = Math.floor(Math.random() * (teams.length));
             group.push((teams[position]));
             teams.splice(position, 1);

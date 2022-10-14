@@ -1,18 +1,9 @@
 
 
 export function makeMatchups(groups){
-    console.log('groups', groups)
 
     let playoffsMatchUps = [];
 
-
-    // groups.forEach( group => {
-    //      group.filter((item, idx) =>  {
-    //         if(idx == 0 || idx == 1){
-    //             playoffsArray.push(item)
-    //         }
-    //     })
-    // })
     let playoffsArray = groups.map( group => {
          return group.filter((item, idx) =>  {
             if(idx == 0 || idx == 1){
@@ -38,10 +29,5 @@ export function makeMatchups(groups){
     playoffsMatchUps[14] = playoffsArray[7][0]
     playoffsMatchUps[15] = playoffsArray[6][1]
 
-
-    
-    //group.filter(item=>  group.indexOf(item) == 0 || 1)
-
-    console.log('playoffArray', playoffsMatchUps)
     return playoffsMatchUps;
 }
