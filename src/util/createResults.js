@@ -17,7 +17,7 @@ export function createGroups(teams) {
 
 
     }
-    
+
     return groups
 }
 
@@ -26,10 +26,10 @@ export function createGroups(teams) {
 
 // cria o resultado de cada confronto
 
-export function makeResultsForEachGroup(groups) {    
+export function makeResultsForEachGroup(groups) {
 
     for (let i = 0; i < groups.length; i++) {
-        
+
 
         let group = groups[i]
         let matches = 3
@@ -49,19 +49,19 @@ export function makeResultsForEachGroup(groups) {
                     let resulta = Math.floor(Math.random() * (7));
                     let resultb = Math.floor(Math.random() * (7));
 
-                    
+
                     let teamb;
-                    
-                    if(k === 1) teamb = 0 
-                    if(k === 2) teamb = 1 
-                    if(k === 3) teamb = -1 
-                    
-                    
-                    
-                    
+
+                    if (k === 1) teamb = 0
+                    if (k === 2) teamb = 1
+                    if (k === 3) teamb = -1
+
+
+
+
                     if (resulta > resultb) {
-                        
-                        
+
+
                         groups[i][0] = {
                             token: groups[i][0].token,
                             name: groups[i][0].name,
@@ -80,8 +80,8 @@ export function makeResultsForEachGroup(groups) {
                                 }
                             }]
                         }
-                        
-                        
+
+
                         groups[i][k + teamb] = {
                             token: groups[i][k + teamb].token,
                             name: groups[i][k + teamb].name,
@@ -100,7 +100,7 @@ export function makeResultsForEachGroup(groups) {
                                 }
                             }]
                         }
-                       
+
                     } else if (resulta == resultb) {
                         groups[i][0] = {
                             token: groups[i][0].token,
@@ -189,10 +189,10 @@ export function makeResultsForEachGroup(groups) {
                 ]
 
                 for (let k = 1; k <= 2; k++) {
-                    
+
 
                     let resulta = Math.floor(Math.random() * (7));
-                    let resultb = Math.floor(Math.random() * (7));                
+                    let resultb = Math.floor(Math.random() * (7));
 
                     if (resulta > resultb) {
 
@@ -458,7 +458,28 @@ export function sortGroupByPoints(groups) {
             if (team.points > team2.points) {
                 return -1
             } else if (team.points == team2.points) {
-                return team.goalsPro > team2.goalsPro ? -1 : 1
+                // let result =  team.goalsPro > team2.goalsPro ? -1 : 1
+
+                if (team.goalsPro > team2.goalsPro) {
+                    return -1
+                }
+
+                if ((team.goalsPro < team2.goalsPro)) {
+                    return 1
+                }
+
+                if ((team.goalsPro === team2.goalsPro)) {
+
+                    let timea = Math.floor(Math.random() * (10 - 1) + 1);
+                    let timeb = Math.floor(Math.random() * (10 - 1) + 1);
+
+                    if ((timea == timeb) && (timea % 2 === 0)) {
+                        return 1
+                    } else {
+                        return -1
+                    }
+                }
+
             } else {
                 return 1
             }
