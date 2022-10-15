@@ -8,7 +8,7 @@ Frontend desenvolvido em React, utilizando: Axios, Phosphoricons, ContextApi, Vi
 
 ## Configuração do Ambiente
 
-Com a pasta frontend selecionada no terminal basta executar o seguintes comandos:
+Com a pasta do projeto selecionada no terminal basta executar o seguintes comandos:
 
 * npm install
 * npm run dev
