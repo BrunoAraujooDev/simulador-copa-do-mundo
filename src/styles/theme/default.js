@@ -10,4 +10,7 @@ export const defaultTheme = {
     'green-header': '#06AA48',
   
     'red-base': '#7A1921',
+    'red-qatar': '#7D183A',
+
+    'gold-color': '#E39B32'
   }

@@ -11,7 +11,9 @@ export const getAllTeams = async () => {
 }
 
 export const insertWinner = async (data) => {
+   
    try {
+
     const result = await postResultService(data);
 
     return result

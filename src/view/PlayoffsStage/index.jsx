@@ -1,16 +1,14 @@
 import { useContext, useEffect, useState } from "react"
 import { PlayoffContext } from "../../context/PlayoffContext"
 import { createMatches } from "../../util/playoffResults"
-import { RoundSection, MatchupDiv, PlayoffContainer, SpanResult } from "./style"
+import { RoundSection, MatchupDiv, PlayoffContainer, SpanResult, SpanPenalty, SendButton } from "./style"
 import './index.css';
+import { insertWinner } from "../../util/getServices";
 
 export function PlayoffComponent() {
 
     const { playoffTeams } = useContext(PlayoffContext)
 
-    const [roundEightTeams, setRoundEightTeams] = useState([]);
-    const [quartersTeams, setQuartersTeams] = useState([]);
-    const [semiTeams, setSemiTeams] = useState([]);
 
     const [teamsQualified, setTeamsQualified] = useState({
         round8: [],
@@ -22,10 +20,29 @@ export function PlayoffComponent() {
 
     async function dealResults() {
 
-        const result = await createMatches(playoffTeams, 'round8')
-        console.log('result', result)
+        const result =  createMatches(playoffTeams, 'round8')
 
         setTeamsQualified(result)
+
+    }
+
+    async function sendResult(){
+
+        const idx = await teamsQualified.finals.findIndex(item => item.finals.winner === true)
+
+        let penaltiA = teamsQualified.finals[idx].finals.penalty == true ? teamsQualified.finals[idx].finals.penaltyResult.goals : 0
+        let penaltiB = teamsQualified.finals[idx].finals.penalty == true ? teamsQualified.finals[idx].finals.penaltyResult.goalsTaken : 0
+
+        let champion = {
+            "equipeA": teamsQualified.finals[idx].name,
+            "equipeB": teamsQualified.finals[idx].finals.adversary,
+            "golsEquipeA": teamsQualified.finals[idx].finals.goals,
+            "golsEquipeB": teamsQualified.finals[idx].finals.goalsTaken,
+            "golsPenaltyTimeA": penaltiA,
+            "golsPenaltyTimeB": penaltiB,
+        }
+        
+        let response = await insertWinner(champion)
     }
 
     useEffect(() => {
@@ -34,6 +51,7 @@ export function PlayoffComponent() {
 
     return (
         <PlayoffContainer>
+            <SendButton onClick={sendResult}>Enviar Vencedor</SendButton>
             {
                 <>
                     <RoundSection>
@@ -42,9 +60,15 @@ export function PlayoffComponent() {
                                 if (idx < 8 && (idx % 2 == 0)) {
                                     return (
                                         <MatchupDiv key={team.name}>
-                                            <h3 className={team.round8.winner === true ? 'winner': 'loser' }>{team.name}</h3>
+                                            <h3 className={team.round8.winner === true ? 'winner' : 'loser'}>{team.name}</h3>
                                             <SpanResult>{team.round8?.goals} x {team.round8?.goalsTaken}</SpanResult>
-                                            <h3 className={team.round8.winner === true ? 'loser': 'winner' }>{team.round8.adversary}</h3>
+                                            <SpanPenalty>
+                                                {team.round8.penalty == true && 'Penalidades: '}
+                                                {team.round8.penalty == true && team.round8.penaltyResult.goals}
+                                                {team.round8.penalty == true && 'x'}
+                                                {team.round8.penalty == true && team.round8.penaltyResult.goalsTaken}
+                                            </SpanPenalty>
+                                            <h3 className={team.round8.winner === true ? 'loser' : 'winner'}>{team.round8.adversary}</h3>
                                         </MatchupDiv>
                                     )
                                 }
@@ -58,9 +82,16 @@ export function PlayoffComponent() {
                                 if (idx < 4 && (idx % 2 == 0)) {
                                     return (
                                         <MatchupDiv key={team.name}>
-                                            <h3 className={team.quarters.winner === true ? 'winner': 'loser' }>{team.name}</h3>
+                                            <h3 className={team.quarters.winner === true ? 'winner' : 'loser'}>{team.name}</h3>
                                             <SpanResult>{team.quarters?.goals} x {team.quarters?.goalsTaken}</SpanResult>
-                                            <h3 className={team.quarters.winner === true ? 'loser': 'winner' }>{team.quarters.adversary}</h3>
+                                                <SpanPenalty>
+                                                    {team.quarters.penalty == true && 'Penalidades: '}
+                                                    {team.quarters.penalty == true && team.quarters.penaltyResult.goals}
+                                                    {team.quarters.penalty == true && 'x'}
+                                                    {team.quarters.penalty == true && team.quarters.penaltyResult.goalsTaken}
+                                                </SpanPenalty>
+                                                <h3 className={team.quarters.winner === true ? 'loser' : 'winner'}>{team.quarters.adversary}</h3>
+                                           
                                         </MatchupDiv>
                                     )
                                 }
@@ -74,9 +105,15 @@ export function PlayoffComponent() {
                                 if (idx == 0 && (idx % 2 == 0)) {
                                     return (
                                         <MatchupDiv key={team.name}>
-                                            <h3 className={team.semi.winner === true ? 'winner': 'loser' }>{team.name}</h3>
+                                            <h3 className={team.semi.winner === true ? 'winner' : 'loser'}>{team.name}</h3>
                                             <SpanResult>{team.semi?.goals} x {team.semi?.goalsTaken}</SpanResult>
-                                            <h3 className={team.semi.winner === true ? 'loser': 'winner' }>{team.semi?.adversary}</h3>
+                                                <SpanPenalty>
+                                                    {team.semi.penalty == true && 'Penalidades: '}
+                                                    {team.semi.penalty == true && team.semi.penaltyResult.goals}
+                                                    {team.semi.penalty == true && 'x'}
+                                                    {team.semi.penalty == true && team.semi.penaltyResult.goalsTaken}
+                                                </SpanPenalty>
+                                                <h3 className={team.semi.winner === true ? 'loser' : 'winner'}>{team.semi?.adversary}</h3> 
                                         </MatchupDiv>
                                     )
                                 }
@@ -90,9 +127,15 @@ export function PlayoffComponent() {
                                 if (idx == 0 && (idx % 2 == 0)) {
                                     return (
                                         <MatchupDiv key={team.name}>
-                                            <h3 className={team.finals.winner === true ? 'winner': 'loser' }>{team.name}</h3>
+                                            <h3 className={team.finals.winner === true ? 'winner' : 'loser'}>{team.name}</h3>
                                             <SpanResult>{team.finals?.goals} x {team.finals?.goalsTaken}</SpanResult>
-                                            <h3 className={team.finals.winner === true ? 'loser': 'winner' }>{team.finals.adversary}</h3>
+                                                <SpanPenalty>
+                                                    {team.finals.penalty == true && 'Penalidades: '}
+                                                    {team.finals.penalty == true && team.finals.penaltyResult.goals}
+                                                    {team.finals.penalty == true && 'x'}
+                                                    {team.finals.penalty == true && team.finals.penaltyResult.goalsTaken}
+                                                </SpanPenalty>
+                                                <h3 className={team.finals.winner === true ? 'loser' : 'winner'}>{team.finals.adversary}</h3>
                                         </MatchupDiv>
                                     )
                                 }
@@ -106,9 +149,15 @@ export function PlayoffComponent() {
                                 if (idx == 2 && (idx % 2 == 0)) {
                                     return (
                                         <MatchupDiv key={team.name}>
-                                            <h3 className={team.semi.winner === true ? 'winner': 'loser' }>{team.name}</h3>
+                                            <h3 className={team.semi.winner === true ? 'winner' : 'loser'}>{team.name}</h3>
                                             <SpanResult>{team.semi?.goals} x {team.semi?.goalsTaken}</SpanResult>
-                                            <h3 className={team.semi.winner === true ? 'loser': 'winner' }>{team.semi.adversary}</h3>
+                                                <SpanPenalty>
+                                                    {team.semi.penalty == true && 'Penalidades: '}
+                                                    {team.semi.penalty == true && team.semi.penaltyResult.goals}
+                                                    {team.semi.penalty == true && 'x'}
+                                                    {team.semi.penalty == true && team.semi.penaltyResult.goalsTaken}
+                                                </SpanPenalty>
+                                                <h3 className={team.semi.winner === true ? 'loser' : 'winner'}>{team.semi.adversary}</h3>
                                         </MatchupDiv>
                                     )
                                 }
@@ -121,9 +170,15 @@ export function PlayoffComponent() {
                                 if (idx > 3 && (idx % 2 == 0)) {
                                     return (
                                         <MatchupDiv key={team.name}>
-                                            <h3 className={team.quarters.winner === true ? 'winner': 'loser' }>{team.name}</h3>
+                                            <h3 className={team.quarters.winner === true ? 'winner' : 'loser'}>{team.name}</h3>
                                             <SpanResult>{team.quarters?.goals} x {team.quarters?.goalsTaken}</SpanResult>
-                                            <h3 className={team.quarters.winner === true ? 'loser': 'winner' }>{team.quarters?.adversary}</h3>
+                                                <SpanPenalty>
+                                                    {team.quarters.penalty == true && 'Penalidades: '}
+                                                    {team.quarters.penalty == true && team.quarters.penaltyResult.goals}
+                                                    {team.quarters.penalty == true && 'x'}
+                                                    {team.quarters.penalty == true && team.quarters.penaltyResult.goalsTaken}
+                                                </SpanPenalty>
+                                                <h3 className={team.quarters.winner === true ? 'loser' : 'winner'}>{team.quarters?.adversary}</h3>  
                                         </MatchupDiv>
                                     )
                                 }
@@ -133,13 +188,19 @@ export function PlayoffComponent() {
                     <RoundSection >
                         {
                             teamsQualified.round8.map((team, idx) => {
-
+                                
                                 if (idx > 7 && (idx % 2 == 0)) {
                                     return (
                                         <MatchupDiv key={team.name}>
-                                            <h3 className={team.round8.winner === true ? 'winner': 'loser' }>{team.name}</h3>
-                                            <SpanResult>{team.round8?.goals} x {team.round8?.goalsTaken}</SpanResult>
-                                            <h3 className={team.round8.winner === true ? 'loser': 'winner' }>{team.round8.adversary}</h3>
+                                            <h3 className={team.round8.winner === true ? 'winner' : 'loser'}>{team.name}</h3>
+                                                <SpanResult>{team.round8?.goals} x {team.round8?.goalsTaken}</SpanResult>
+                                                <SpanPenalty>
+                                                    {team.round8.penalty == true && 'Penalidades: '}
+                                                    {team.round8.penalty == true && team.round8.penaltyResult.goals}
+                                                    {team.round8.penalty == true && 'x'}
+                                                    {team.round8.penalty == true && team.round8.penaltyResult.goalsTaken}
+                                                </SpanPenalty>
+                                            <h3 className={team.round8.winner === true ? 'loser' : 'winner'}>{team.round8.adversary}</h3>
                                         </MatchupDiv>
                                     )
                                 }
@@ -151,5 +212,5 @@ export function PlayoffComponent() {
         </PlayoffContainer>
     )
 
-
+    
 }

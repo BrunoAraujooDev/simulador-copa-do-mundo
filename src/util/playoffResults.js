@@ -135,9 +135,9 @@ function makePlayoffResults(teams, type) {
             let penaltyb = Math.floor(Math.random() * (5 - 3) + 3);
 
             if ((penaltya == penaltyb) && penaltya == 5) {
-                penaltyb = penaltyb - 1
+                penaltya = Math.floor(Math.random() * (9 - 6) + 6);
             } else {
-                penaltya = penaltya - 1
+                penaltyb = 5
             }
 
 

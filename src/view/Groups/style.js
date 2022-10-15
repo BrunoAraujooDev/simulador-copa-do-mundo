@@ -39,7 +39,7 @@ export const RoundText = styled.div`
     font-size: 1.3rem;
     border: none;
     background-color: ${prop => prop.theme['white']};
-    border-bottom: 4px solid ${prop => prop.theme['green-base']};
+    border-bottom: 4px solid ${prop => prop.theme['gold-color']};
     padding-bottom: 0.8rem;
     position: inherit; 
 `
@@ -82,7 +82,7 @@ export const TableGroups = styled.table`
     min-height: 10rem;
 
     thead{
-        border-bottom: 1px solid ${prop => prop.theme['gray-border']};
+        border-bottom: 1px solid ${prop => prop.theme['gold-color']};
     }
 
 
@@ -106,6 +106,7 @@ export const ChangePageButton = styled.button`
     font-size: 1.5rem;
     gap: 1rem;
     border: 1px solid ${prop => prop.theme['red-base']};
+    color: ${prop => prop.theme['red-base']};
     padding: 1rem 2rem;
     border-radius: 8px;
     text-transform: uppercase;
@@ -114,6 +115,6 @@ export const ChangePageButton = styled.button`
 
     &:hover{
         color: ${prop => prop.theme['white']};
-        background-color: ${prop => prop.theme['red-base']};
+        background-color: ${prop => prop.theme['red-qatar']};
     }
 `

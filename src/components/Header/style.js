@@ -2,14 +2,26 @@ import styled from "styled-components";
 
 export const HeaderStyle = styled.header`
     width: 100vw;
-    text-align: center;
+    display: flex;
+    width: 100vw;
     padding: 2rem;
-    background-color: ${prop => prop.theme['green-header']};
+    background-color: ${prop => prop.theme['red-qatar']};
     position: fixed;
     top: 0;
+    color: ${prop => prop.theme['white']};
+
+    a{
+        text-decoration: none;
+        color: ${prop => prop.theme['white']};
+    }
+
+    svg{
+        flex: 1;
+        margin-right: 600px;
+    }
 `
 
 export const TituloStyle = styled.h1`
-    color: ${prop => prop.theme['white']};
+    width: 60%;
 
 `
