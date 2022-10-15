@@ -51,11 +51,10 @@ export function makeResultsForEachGroup(groups) {
 
                     
                     let teamb;
-                    //let teamb = (k === 1) ? group[1] : (k == 2 ? group[3] : group[2])
                     
-                    if(k === 1) teamb = 0 //group[1];
-                    if(k === 2) teamb = 1 //group[3];
-                    if(k === 3) teamb = -1 //group[2];
+                    if(k === 1) teamb = 0 
+                    if(k === 2) teamb = 1 
+                    if(k === 3) teamb = -1 
                     
                     
                     
