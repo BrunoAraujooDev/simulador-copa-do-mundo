@@ -83,3 +83,21 @@ export const ImgFlag = styled.img`
     border: 1px solid ${prop => prop.theme['gold-color']};
     margin-bottom: 1rem;
 `
+
+export const NoDataDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 80vh;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-decoration: underline;
+
+    & > svg{
+        color: ${prop => prop.theme['gold-color']};
+        margin-bottom: 1rem;
+    }
+
+`
