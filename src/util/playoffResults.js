@@ -19,7 +19,6 @@ export function createMatches(teams) {
     winner = filterTeams(finals, 'finals');
 
 
-
     return {
         round8, 
         quarters, 
@@ -44,7 +43,7 @@ function makePlayoffResults(teams, type) {
 
             teams[i] = {
                 name: teams[i]?.name,
-                token: teams[i]?.token,
+                flag: teams[i]?.flag,
                 matches: 3,
                 points: teams[i]?.points,
                 victory: teams[i]?.victory,
@@ -65,7 +64,7 @@ function makePlayoffResults(teams, type) {
 
             teams[i + 1] = {
                 name: teams[i + 1]?.name,
-                token: teams[i + 1]?.token,
+                flag: teams[i + 1]?.flag,
                 matches: 3,
                 points: teams[i + 1]?.points,
                 victory: teams[i + 1]?.victory,
@@ -88,7 +87,7 @@ function makePlayoffResults(teams, type) {
 
             teams[i] = {
                 name: teams[i]?.name,
-                token: teams[i]?.token,
+                flag: teams[i]?.flag,
                 matches: 3,
                 points: teams[i]?.points,
                 victory: teams[i]?.victory,
@@ -108,7 +107,7 @@ function makePlayoffResults(teams, type) {
 
             teams[i + 1] = {
                 name: teams[i + 1]?.name,
-                token: teams[i + 1]?.token,
+                flag: teams[i + 1]?.flag,
                 matches: 3,
                 points: teams[i + 1]?.points,
                 victory: teams[i + 1]?.victory,
@@ -143,7 +142,7 @@ function makePlayoffResults(teams, type) {
 
             teams[i] = {
                 name: teams[i]?.name,
-                token: teams[i]?.token,
+                flag: teams[i]?.flag,
                 matches: 3,
                 points: teams[i]?.points,
                 victory: teams[i]?.victory,
@@ -167,7 +166,7 @@ function makePlayoffResults(teams, type) {
 
             teams[i + 1] = {
                 name: teams[i + 1]?.name,
-                token: teams[i + 1]?.token,
+                flag: teams[i + 1]?.flag,
                 matches: 3,
                 points: teams[i + 1]?.points,
                 victory: teams[i + 1]?.victory,

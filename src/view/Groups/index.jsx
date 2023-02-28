@@ -20,11 +20,11 @@ export function Groups() {
         const teams = await getAllTeams()
         let data = []
 
-        data = await teams.Result.map(item => {
+        data = await teams.map(item => {
 
             return {
-                token: item.Token,
-                name: item.Name,
+                flag: item.flag,
+                name: item.name,
                 points: 0,
                 matches: 3,
                 victory: 0,

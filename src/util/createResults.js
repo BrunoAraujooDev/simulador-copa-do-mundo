@@ -63,7 +63,7 @@ export function makeResultsForEachGroup(groups) {
 
 
                         groups[i][0] = {
-                            token: groups[i][0].token,
+                            flag: groups[i][0].flag,
                             name: groups[i][0].name,
                             points: groups[i][0].points + 3,
                             matches: 3,
@@ -83,7 +83,7 @@ export function makeResultsForEachGroup(groups) {
 
 
                         groups[i][k + teamb] = {
-                            token: groups[i][k + teamb].token,
+                            flag: groups[i][k + teamb].flag,
                             name: groups[i][k + teamb].name,
                             matches: 3,
                             points: groups[i][k + teamb].points,
@@ -103,7 +103,7 @@ export function makeResultsForEachGroup(groups) {
 
                     } else if (resulta == resultb) {
                         groups[i][0] = {
-                            token: groups[i][0].token,
+                            flag: groups[i][0].flag,
                             name: groups[i][0].name,
                             matches: 3,
                             points: groups[i][0].points + 1,
@@ -122,7 +122,7 @@ export function makeResultsForEachGroup(groups) {
                         }
 
                         groups[i][k + teamb] = {
-                            token: groups[i][k + teamb].token,
+                            flag: groups[i][k + teamb].flag,
                             name: groups[i][k + teamb].name,
                             matches: 3,
                             points: groups[i][k + teamb].points + 1,
@@ -141,7 +141,7 @@ export function makeResultsForEachGroup(groups) {
                         }
                     } else {
                         groups[i][0] = {
-                            token: groups[i][0].token,
+                            flag: groups[i][0].flag,
                             name: groups[i][0].name,
                             matches: 3,
                             points: groups[i][0].points,
@@ -160,7 +160,7 @@ export function makeResultsForEachGroup(groups) {
                         }
 
                         groups[i][k + teamb] = {
-                            token: groups[i][k + teamb].token,
+                            flag: groups[i][k + teamb].flag,
                             name: groups[i][k + teamb].name,
                             matches: 3,
                             points: groups[i][k + teamb].points + 3,
@@ -197,7 +197,7 @@ export function makeResultsForEachGroup(groups) {
                     if (resulta > resultb) {
 
                         groups[i][1] = {
-                            token: groups[i][1].token,
+                            flag: groups[i][1].flag,
                             name: groups[i][1].name,
                             points: groups[i][1].points + 3,
                             matches: 3,
@@ -216,7 +216,7 @@ export function makeResultsForEachGroup(groups) {
                         }
 
                         groups[i][k + 1] = {
-                            token: groups[i][k + 1].token,
+                            flag: groups[i][k + 1].flag,
                             name: groups[i][k + 1].name,
                             matches: 3,
                             points: groups[i][k + 1].points,
@@ -235,7 +235,7 @@ export function makeResultsForEachGroup(groups) {
                         }
                     } else if (resulta == resultb) {
                         groups[i][1] = {
-                            token: groups[i][1].token,
+                            flag: groups[i][1].flag,
                             name: groups[i][1].name,
                             matches: 3,
                             points: groups[i][1].points + 1,
@@ -254,7 +254,7 @@ export function makeResultsForEachGroup(groups) {
                         }
 
                         groups[i][k + 1] = {
-                            token: groups[i][k + 1].token,
+                            flag: groups[i][k + 1].flag,
                             name: groups[i][k + 1].name,
                             matches: 3,
                             points: groups[i][k + 1].points + 1,
@@ -273,7 +273,7 @@ export function makeResultsForEachGroup(groups) {
                         }
                     } else {
                         groups[i][1] = {
-                            token: groups[i][1].token,
+                            flag: groups[i][1].flag,
                             name: groups[i][1].name,
                             matches: 3,
                             points: groups[i][1].points,
@@ -292,7 +292,7 @@ export function makeResultsForEachGroup(groups) {
                         }
 
                         groups[i][k + 1] = {
-                            token: groups[i][k + 1].token,
+                            flag: groups[i][k + 1].flag,
                             name: groups[i][k + 1].name,
                             matches: 3,
                             points: groups[i][k + 1].points + 3,
@@ -325,7 +325,7 @@ export function makeResultsForEachGroup(groups) {
                 if (resulta > resultb) {
 
                     groups[i][2] = {
-                        token: groups[i][2].token,
+                        flag: groups[i][2].flag,
                         name: groups[i][2].name,
                         points: groups[i][2].points + 3,
                         matches: 3,
@@ -344,7 +344,7 @@ export function makeResultsForEachGroup(groups) {
                     }
 
                     groups[i][3] = {
-                        token: groups[i][3].token,
+                        flag: groups[i][3].flag,
                         name: groups[i][3].name,
                         matches: 3,
                         points: groups[i][3].points,
@@ -363,7 +363,7 @@ export function makeResultsForEachGroup(groups) {
                     }
                 } else if (resulta == resultb) {
                     groups[i][2] = {
-                        token: groups[i][2].token,
+                        flag: groups[i][2].flag,
                         name: groups[i][2].name,
                         matches: 3,
                         points: groups[i][2].points + 1,
@@ -382,7 +382,7 @@ export function makeResultsForEachGroup(groups) {
                     }
 
                     groups[i][3] = {
-                        token: groups[i][3].token,
+                        flag: groups[i][3].flag,
                         name: groups[i][3].name,
                         matches: 3,
                         points: groups[i][3].points + 1,
@@ -401,7 +401,7 @@ export function makeResultsForEachGroup(groups) {
                     }
                 } else {
                     groups[i][2] = {
-                        token: groups[i][2].token,
+                        flag: groups[i][2].flag,
                         name: groups[i][2].name,
                         matches: 3,
                         points: groups[i][2].points,
@@ -420,7 +420,7 @@ export function makeResultsForEachGroup(groups) {
                     }
 
                     groups[i][3] = {
-                        token: groups[i][3].token,
+                        flag: groups[i][3].flag,
                         name: groups[i][3].name,
                         matches: 3,
                         points: groups[i][3].points + 3,

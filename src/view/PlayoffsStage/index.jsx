@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react"
 import { PlayoffContext } from "../../context/PlayoffContext"
 import { createMatches } from "../../util/playoffResults"
-import { RoundSection, MatchupDiv, PlayoffContainer, SpanResult, SpanPenalty, SendButton } from "./style"
+import { RoundSection, MatchupDiv, PlayoffContainer, SpanResult, SpanPenalty, SendButton, ImgFlag, FigureFlag } from "./style"
 import './index.css';
-import { insertWinner } from "../../util/getServices";
+import { Trophy } from "phosphor-react";
+
 
 export function PlayoffComponent() {
 
@@ -17,6 +18,8 @@ export function PlayoffComponent() {
         finals: [],
         winner: {}
     })
+
+    const [winner, setWinner] = useState({});
 
     async function dealResults() {
 
@@ -32,17 +35,19 @@ export function PlayoffComponent() {
 
         let penaltiA = teamsQualified.finals[idx].finals.penalty == true ? teamsQualified.finals[idx].finals.penaltyResult.goals : 0
         let penaltiB = teamsQualified.finals[idx].finals.penalty == true ? teamsQualified.finals[idx].finals.penaltyResult.goalsTaken : 0
-
+        
         let champion = {
             "equipeA": teamsQualified.finals[idx].name,
+            "flag": teamsQualified.finals[idx].flag,
             "equipeB": teamsQualified.finals[idx].finals.adversary,
             "golsEquipeA": teamsQualified.finals[idx].finals.goals,
             "golsEquipeB": teamsQualified.finals[idx].finals.goalsTaken,
             "golsPenaltyTimeA": penaltiA,
             "golsPenaltyTimeB": penaltiB,
         }
+
+        setWinner(champion);
         
-        let response = await insertWinner(champion)
     }
 
     useEffect(() => {
@@ -51,7 +56,14 @@ export function PlayoffComponent() {
 
     return (
         <PlayoffContainer>
-            <SendButton onClick={sendResult}>Enviar Vencedor</SendButton>
+            <FigureFlag>
+                {teamsQualified.winner[0] != [] ? 
+                <ImgFlag src={teamsQualified.winner[0]?.flag || ""} alt="World cup winner flag" />
+                : <Trophy size={32} weight="bold" />}
+                
+                <figcaption>{teamsQualified.winner[0].name || ""}</figcaption>
+            </FigureFlag>
+            
             {
                 <>
                     <RoundSection>

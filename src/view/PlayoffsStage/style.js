@@ -63,3 +63,23 @@ export const SendButton = styled.button`
     right: 45%;
     top: 20%;
 `
+
+export const FigureFlag = styled.figure`
+    position: absolute;
+    right: 45%;
+    top: 20%;
+    text-align: center;
+
+    & > figcaption{
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+`
+
+export const ImgFlag = styled.img`
+    height: 9rem;
+    width: 10rem;
+    border-radius: 50%;
+    border: 1px solid ${prop => prop.theme['gold-color']};
+    margin-bottom: 1rem;
+`
