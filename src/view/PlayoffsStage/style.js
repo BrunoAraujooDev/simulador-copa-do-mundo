@@ -82,6 +82,7 @@ export const ImgFlag = styled.img`
     border-radius: 50%;
     border: 1px solid ${prop => prop.theme['gold-color']};
     margin-bottom: 1rem;
+    object-fit: cover;
 `
 
 export const NoDataDiv = styled.div`

@@ -25,8 +25,6 @@ export function PlayoffComponent() {
 
         const result = createMatches(playoffTeams, 'round8');
 
-        console.log(teamsQualified.winner[0]
-            )
         setTeamsQualified(result)
 
     }
@@ -61,7 +59,10 @@ export function PlayoffComponent() {
             {teamsQualified.winner[0] != undefined ?
                 <FigureFlag>
 
-                    <ImgFlag src={teamsQualified.winner[0]?.flag || ""} alt="World cup winner flag" />
+                    <ImgFlag 
+                        src={teamsQualified.winner[0]?.flag || "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_FIFA.svg/2560px-Flag_of_FIFA.svg.png"} 
+                        alt="World cup winner flag" 
+                    />
 
                     <figcaption>{teamsQualified.winner[0]?.name || ""}</figcaption>
                 </FigureFlag>
