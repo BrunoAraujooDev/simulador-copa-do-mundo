@@ -1,6 +1,6 @@
-# Desafio Tech Geopost
+# Simulador Copa do Mundo 2022
 
-Este projeto foi desenvolvido para completar o desafio de criar um simulador de resultados da Copa do Mundo 2022.
+Este projeto foi desenvolvido para criar um simulador de resultados da Copa do Mundo 2022.
 
 # Tecnologias
 
